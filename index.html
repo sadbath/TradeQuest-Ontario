@@ -7,12 +7,12 @@
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
   <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
+
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -32,9 +32,9 @@
       }
     }
   </script>
-<style>
+  <style>
     .view { transition: opacity 0.3s, transform 0.3s; }
-    
+
     /* STACK STYLES */
     #deckCard {
       position: relative;
@@ -52,13 +52,11 @@
       transform: translateY(0) scale(1);
       opacity: 1;
     }
-    /* CHANGE: Reduced translateY for a tighter stack on the shorter cards */
     .deck-card[data-index="1"] {
       z-index: 2;
       transform: translateY(10px) scale(0.95);
       opacity: 1;
     }
-    /* CHANGE: Reduced translateY for a tighter stack */
     .deck-card[data-index="2"] {
       z-index: 1;
       transform: translateY(20px) scale(0.9);
@@ -77,176 +75,204 @@
       cursor: grabbing;
       transition: none;
     }
-</style>
+  </style>
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 antialiased font-sans h-screen flex flex-col">
-  
-  <header class="flex-shrink-0">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <div class="flex items-center gap-3"><h1 class="text-xl font-extrabold tracking-tight">TradeQuest Ontario</h1></div>
-        <button id="themeToggle" title="Toggle Theme" class="grid place-content-center w-10 h-10 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800"><span id="themeIcon" class="text-lg">🌙</span></button>
-      </div>
+
+<header class="flex-shrink-0">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center gap-3"><h1 class="text-xl font-extrabold tracking-tight">TradeQuest Ontario</h1></div>
+      <button id="themeToggle" title="Toggle Theme" class="grid place-content-center w-10 h-10 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800"><span id="themeIcon" class="text-lg">🌙</span></button>
     </div>
-  </header>
+  </div>
+</header>
 
-  <main class="flex-grow flex flex-col items-center justify-center p-4 overflow-hidden">
-    <section id="welcomeView" class="view text-center animate-enter">
-      <div class="text-6xl mb-4">🛠️</div>
-      <h2 class="text-3xl sm:text-4xl font-extrabold">Build a Career. Skip the Student Debt.</h2>
-      <p class="mt-2 max-w-xl mx-auto text-gray-600 dark:text-gray-400">Tired of the "university or nothing" talk? Discover high-paying, in-demand skilled trades in Ontario that let you earn while you learn.</p>
-      <button id="startQuestBtn" class="mt-8 inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-primary text-white font-bold text-lg shadow-lg hover:opacity-90 transition-transform hover:scale-105">Find My Trade</button>
-    </section>
+<main class="flex-grow flex flex-col items-center justify-center p-4 overflow-hidden">
+  <section id="welcomeView" class="view text-center animate-enter">
+    <div class="text-6xl mb-4">🛠️</div>
+    <h2 class="text-3xl sm:text-4xl font-extrabold">Build a Career. Skip the Student Debt.</h2>
+    <p class="mt-2 max-w-xl mx-auto text-gray-600 dark:text-gray-400">Tired of the "university or nothing" talk? Discover high-paying, in-demand skilled trades in Ontario that let you earn while you learn.</p>
+    <button id="startQuestBtn" class="mt-8 inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-primary text-white font-bold text-lg shadow-lg hover:opacity-90 transition-transform hover:scale-105">Find My Trade</button>
+  </section>
 
-    <section id="quizView" class="view hidden w-full max-w-2xl animate-enter">
-      <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 mb-6"><div id="quizProgressBar" class="bg-accent h-2.5 rounded-full transition-all duration-300"></div></div>
-      <div id="quizContent" class="text-center"></div>
-    </section>
+  <section id="quizView" class="view hidden w-full max-w-2xl animate-enter">
+    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 mb-6"><div id="quizProgressBar" class="bg-accent h-2.5 rounded-full transition-all duration-300"></div></div>
+    <div id="quizContent" class="text-center"></div>
+  </section>
 
-
-<!-- Deck View -->
-<!-- AFTER -->
-<section id="deckView" class="view hidden w-full flex flex-col items-center justify-center animate-enter">
-    <!-- CHANGE: FAT CARDS -> max-w-xl (wider) and h-[500px] (shorter) -->
+  <section id="deckView" class="view hidden w-full flex flex-col items-center justify-center animate-enter">
     <div id="deckCard" class="w-full max-w-xl h-[500px] mb-6"></div>
     <div class="flex items-center gap-4">
-        <button id="nopeBtn" class="w-20 h-20 grid place-content-center rounded-full bg-white dark:bg-gray-800 text-3xl shadow-lg hover:scale-110 transition-transform">❌</button>
-        <button id="yepBtn" class="w-24 h-24 grid place-content-center rounded-full bg-primary text-white text-4xl shadow-lg shadow-primary/30 hover:scale-110 transition-transform">👍</button>
+      <button id="nopeBtn" class="w-20 h-20 grid place-content-center rounded-full bg-white dark:bg-gray-800 text-3xl shadow-lg hover:scale-110 transition-transform">❌</button>
+      <button id="yepBtn" class="w-24 h-24 grid place-content-center rounded-full bg-primary text-white text-4xl shadow-lg shadow-primary/30 hover:scale-110 transition-transform">👍</button>
     </div>
-</section>
+  </section>
 
-    <section id="favoritesView" class="view hidden w-full max-w-4xl animate-enter">
-      <h2 class="text-3xl font-extrabold mb-6">My Saved Trades</h2>
-      <div id="favsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-      <p id="noFavs" class="hidden py-16 text-center text-gray-500">You haven't saved any trades yet! Go to Discover to find your match.</p>
-    </section>
-  </main>
-  
-  <footer id="navBar" class="hidden flex-shrink-0 sticky bottom-0 bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg border-t border-gray-200 dark:border-gray-700">
-    <div class="max-w-4xl mx-auto px-4 flex justify-around">
-      <button id="discoverNav" class="nav-btn flex-1 flex flex-col items-center gap-1 py-2 font-semibold text-primary border-t-2 border-primary"><span class="text-2xl">🧭</span><span>Discover</span></button>
-      <button id="favoritesNav" class="nav-btn flex-1 flex flex-col items-center gap-1 py-2 font-semibold text-gray-500 border-t-2 border-transparent"><span class="text-2xl">✅</span><span>My List</span></button>
-    </div>
-  </footer>
+  <section id="favoritesView" class="view hidden w-full max-w-4xl animate-enter">
+    <h2 class="text-3xl font-extrabold mb-6">My Saved Trades</h2>
+    <div id="favsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    <p id="noFavs" class="hidden py-16 text-center text-gray-500">You haven't saved any trades yet! Go to Discover to find your match.</p>
+  </section>
+</main>
 
-  <div id="modal" class="fixed inset-0 hidden z-50 p-4 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-    <div id="modalContent" class="relative w-full max-w-2xl bg-white dark:bg-gray-800 rounded-2xl shadow-xl animate-enter max-h-[90vh] overflow-y-auto"></div>
+<footer id="navBar" class="hidden flex-shrink-0 sticky bottom-0 bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg border-t border-gray-200 dark:border-gray-700">
+  <div class="max-w-4xl mx-auto px-4 flex justify-around">
+    <button id="discoverNav" class="nav-btn flex-1 flex flex-col items-center gap-1 py-2 font-semibold text-primary border-t-2 border-primary"><span class="text-2xl">🧭</span><span>Discover</span></button>
+    <button id="favoritesNav" class="nav-btn flex-1 flex flex-col items-center gap-1 py-2 font-semibold text-gray-500 border-t-2 border-transparent"><span class="text-2xl">✅</span><span>My List</span></button>
   </div>
+</footer>
 
-  <script>
-    const TRADES = [
-      { id:'electrician', name:'Electrician', emoji:'⚡️', startingWage:24, potentialWage:45, years:5, isRedSeal: true,
-        description: "Installs and maintains electrical systems in homes, businesses, and factories.",
-        perks: ["High demand, great pay", "Problem-solving every day", "Work in different locations"],
-        demand: "Very High", environment: "Indoors / Construction Sites",
-        tools: ["Multimeter", "Conduit Bender", "Wire Strippers"],
-        links: { jobs: "https://www.jobbank.gc.ca/jobsearch/jobsearch?searchstring=72200&locationstring=Ontario", union: "https://ibewcco.org/" },
-        tags:['handsOn','tech','detailOriented'] },
-      { id:'carpenter', name:'Carpenter', emoji:'🪚', startingWage:22, potentialWage:40, years:4, isRedSeal: true,
-        description: "Builds, erects, and repairs structures made of wood and other materials.",
-        perks: ["See your work come to life", "Creative and physical", "Can lead to owning your own business"],
-        demand: "High", environment: "Outdoors / Indoors",
-        tools: ["Skill Saw", "Framing Nailer", "Level"],
-        links: { jobs: "https://www.jobbank.gc.ca/jobsearch/jobsearch?searchstring=72310&locationstring=Ontario", union: "https://www.carpentersontario.ca/" },
-        tags:['handsOn','creative','outdoor'] },
-      { id:'plumber', name:'Plumber', emoji:'💧', startingWage:25, potentialWage:50, years:5, isRedSeal: true,
-        description: "Assembles and repairs pipes for water, gas, and drainage systems.",
-        perks: ["Always in demand (job security!)", "Excellent earning potential", "Every day is a new puzzle"],
-        demand: "Very High", environment: "Residential & Commercial Sites",
-        tools: ["Pipe Wrench", "PEX Crimp Tool", "Drain Auger"],
-        links: { jobs: "https://www.jobbank.gc.ca/jobsearch/jobsearch?searchstring=72300&locationstring=Ontario", union: "https://ualocal46.org/" },
-        tags:['handsOn','problemSolving','tech'] },
-      { id:'automotive', name:'Automotive Service Tech', emoji:'🚗', startingWage:20, potentialWage:40, years:4, isRedSeal: true,
-        description: "Inspects, diagnoses, and repairs cars and light trucks.",
-        perks: ["Work on the latest technology", "Perfect for car lovers", "Fast-paced environment"],
-        demand: "High", environment: "Garages & Dealerships",
-        tools: ["Impact Wrench", "OBD2 Scanner", "Hoist"],
-        links: { jobs: "https://www.jobbank.gc.ca/jobsearch/jobsearch?searchstring=72410&locationstring=Ontario", union: "https://iamaw.ca/sectors/automotive/" },
-        tags:['handsOn','tech','vehicles','problemSolving'] },
-      { id:'welder', name:'Welder', emoji:'🔥', startingWage:22, potentialWage:42, years:3, isRedSeal: true,
-        description: "Joins metal parts together for everything from cars to massive structures.",
-        perks: ["Highly skilled and respected", "Work on large-scale projects", "Strong earning potential"],
-        demand: "High", environment: "Shops & Field Locations",
-        tools: ["MIG Welder", "Grinder", "Plasma Cutter"],
-        links: { jobs: "https://www.jobbank.gc.ca/jobsearch/jobsearch?searchstring=72106&locationstring=Ontario", union: "https://www.ironworkers.org/" },
-        tags:['handsOn','tech','detailOriented'] },
-      { id:'millwright', name:'Industrial Millwright', emoji:'⚙️', startingWage:28, potentialWage:55, years:4, isRedSeal: true,
-        description: "Installs, maintains, and repairs complex industrial machinery and equipment.",
-        perks: ["The 'doctors' of machinery", "Extremely high demand & pay", "Work with robotics and automation"],
-        demand: "Very High", environment: "Factories & Power Plants",
-        tools: ["Laser Alignment Tool", "Bearing Puller", "Torque Wrench"],
-        links: { jobs: "https://www.jobbank.gc.ca/jobsearch/jobsearch?searchstring=72400&locationstring=Ontario", union: "https://www.millwrightontario.com/" },
-        tags:['handsOn','tech','problemSolving'] },
-      { id:'heavy_duty_tech', name:'Heavy Duty Equipment Tech', emoji:'🚜', startingWage:27, potentialWage:50, years:4, isRedSeal: true,
-        description: "Maintains and repairs heavy equipment like bulldozers, cranes, and tractors.",
-        perks: ["Work on massive, powerful machines", "Great pay from day one", "Combination of field and shop work"],
-        demand: "Very High", environment: "Field Sites & Large Garages",
-        tools: ["Hydraulic Press", "Heavy-duty Sockets", "Diagnostic Laptop"],
-        links: { jobs: "https://www.jobbank.gc.ca/jobsearch/jobsearch?searchstring=72401&locationstring=Ontario", union: "https://iuoelocal793.org/" },
-        tags:['handsOn','vehicles','problemSolving','outdoor'] },
-    ];
-    const QUIZ = [
-      { q: "On a weekend, you'd rather be...", a: [ { t: "Building a deck or fixing a bike", v: ['handsOn', 'creative'] }, { t: "Figuring out why your computer is slow", v: ['tech', 'problemSolving'] }, { t: "Hiking, camping, or working outside", v: ['outdoor'] } ]},
-      { q: "What's your working style?", a: [ { t: "I like helping and talking to people", v: ['people'] }, { t: "I like focusing on one detailed task", v: ['detailOriented'] }, { t: "I like a fast-paced, high-energy vibe", v: ['fastPaced'] } ]},
-      { q: "Choose a superpower:", a: [ { t: "The ability to fix any machine", v: ['vehicles', 'problemSolving'] }, { t: "The ability to create beautiful things", v: ['creative'] }, { t: "The ability to work a predictable 9-5", v: ['steadyHours'] } ]}
-    ];
+<div id="modal" class="fixed inset-0 hidden z-50 p-4 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+  <div id="modalContent" class="relative w-full max-w-2xl bg-white dark:bg-gray-800 rounded-2xl shadow-xl animate-enter max-h-[90vh] overflow-y-auto"></div>
+</div>
 
-    const state = { currentView: 'welcome', quiz: { questionIndex: 0, vibes: new Set() }, deck: { trades: [], currentIndex: 0 }, favorites: new Set(), theme: 'auto' };
-    const $ = (sel) => document.querySelector(sel);
-    const $$ = (sel) => document.querySelectorAll(sel);
-    const saveState = () => { localStorage.setItem('tradeQuestFavorites', JSON.stringify([...state.favorites])); localStorage.setItem('theme', state.theme); };
-    const loadState = () => { try { const f = localStorage.getItem('tradeQuestFavorites'); if (f) state.favorites = new Set(JSON.parse(f)); } catch {} state.theme = localStorage.getItem('theme') || 'auto'; };
-    
-    function applyTheme() { const isDark = state.theme === 'dark' || (state.theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches); document.documentElement.classList.toggle('dark', isDark); $('#themeIcon').textContent = isDark ? '🌞' : '🌙'; }
-    function toggleTheme() { state.theme = state.theme === 'auto' ? 'dark' : state.theme === 'dark' ? 'light' : 'auto'; applyTheme(); saveState(); }
-    
-    function render() {
-      $$('.view').forEach(v => v.classList.add('hidden'));
-      $(`#${state.currentView}View`)?.classList.remove('hidden');
-      $('#navBar').classList.toggle('hidden', state.currentView === 'welcome' || state.currentView === 'quiz');
-      $$('.nav-btn').forEach(btn => { btn.classList.remove('text-primary', 'border-primary'); btn.classList.add('text-gray-500', 'border-transparent'); });
-      $(`#${state.currentView}Nav`)?.classList.add('text-primary', 'border-primary');
-      
-      switch (state.currentView) {
-        case 'quiz': renderQuiz(); break;
-        case 'deck': renderDeck(); break;
-        case 'favorites': renderFavorites(); break;
+<script>
+  const TRADES = [
+    { id:'electrician', name:'Electrician', emoji:'⚡️', startingWage:24, potentialWage:45, years:5, isRedSeal: true,
+      description: "Installs and maintains electrical systems in homes, businesses, and factories.",
+      perks: ["High demand, great pay", "Problem-solving every day", "Work in different locations"],
+      demand: "Very High", environment: "Indoors / Construction Sites",
+      tools: ["Multimeter", "Conduit Bender", "Wire Strippers"],
+      links: { jobs: "https://www.jobbank.gc.ca/jobsearch/jobsearch?searchstring=72200&locationstring=Ontario", union: "https://ibewcco.org/" },
+      tags:['handsOn','tech','detailOriented'] },
+    { id:'carpenter', name:'Carpenter', emoji:'🪚', startingWage:22, potentialWage:40, years:4, isRedSeal: true,
+      description: "Builds, erects, and repairs structures made of wood and other materials.",
+      perks: ["See your work come to life", "Creative and physical", "Can lead to owning your own business"],
+      demand: "High", environment: "Outdoors / Indoors",
+      tools: ["Skill Saw", "Framing Nailer", "Level"],
+      links: { jobs: "https://www.jobbank.gc.ca/jobsearch/jobsearch?searchstring=72310&locationstring=Ontario", union: "https://www.carpentersontario.ca/" },
+      tags:['handsOn','creative','outdoor'] },
+    { id:'plumber', name:'Plumber', emoji:'💧', startingWage:25, potentialWage:50, years:5, isRedSeal: true,
+      description: "Assembles and repairs pipes for water, gas, and drainage systems.",
+      perks: ["Always in demand (job security!)", "Excellent earning potential", "Every day is a new puzzle"],
+      demand: "Very High", environment: "Residential & Commercial Sites",
+      tools: ["Pipe Wrench", "PEX Crimp Tool", "Drain Auger"],
+      links: { jobs: "https://www.jobbank.gc.ca/jobsearch/jobsearch?searchstring=72300&locationstring=Ontario", union: "https://ualocal46.org/" },
+      tags:['handsOn','problemSolving','tech'] },
+    { id:'automotive', name:'Automotive Service Tech', emoji:'🚗', startingWage:20, potentialWage:40, years:4, isRedSeal: true,
+      description: "Inspects, diagnoses, and repairs cars and light trucks.",
+      perks: ["Work on the latest technology", "Perfect for car lovers", "Fast-paced environment"],
+      demand: "High", environment: "Garages & Dealerships",
+      tools: ["Impact Wrench", "OBD2 Scanner", "Hoist"],
+      links: { jobs: "https://www.jobbank.gc.ca/jobsearch/jobsearch?searchstring=72410&locationstring=Ontario", union: "https://iamaw.ca/sectors/automotive/" },
+      tags:['handsOn','tech','vehicles','problemSolving'] },
+    { id:'welder', name:'Welder', emoji:'🔥', startingWage:22, potentialWage:42, years:3, isRedSeal: true,
+      description: "Joins metal parts together for everything from cars to massive structures.",
+      perks: ["Highly skilled and respected", "Work on large-scale projects", "Strong earning potential"],
+      demand: "High", environment: "Shops & Field Locations",
+      tools: ["MIG Welder", "Grinder", "Plasma Cutter"],
+      links: { jobs: "https://www.jobbank.gc.ca/jobsearch/jobsearch?searchstring=72106&locationstring=Ontario", union: "https://www.ironworkers.org/" },
+      tags:['handsOn','tech','detailOriented'] },
+    { id:'millwright', name:'Industrial Millwright', emoji:'⚙️', startingWage:28, potentialWage:55, years:4, isRedSeal: true,
+      description: "Installs, maintains, and repairs complex industrial machinery and equipment.",
+      perks: ["The 'doctors' of machinery", "Extremely high demand & pay", "Work with robotics and automation"],
+      demand: "Very High", environment: "Factories & Power Plants",
+      tools: ["Laser Alignment Tool", "Bearing Puller", "Torque Wrench"],
+      links: { jobs: "https://www.jobbank.gc.ca/jobsearch/jobsearch?searchstring=72400&locationstring=Ontario", union: "https://www.millwrightontario.com/" },
+      tags:['handsOn','tech','problemSolving'] },
+    { id:'heavy_duty_tech', name:'Heavy Duty Equipment Tech', emoji:'🚜', startingWage:27, potentialWage:50, years:4, isRedSeal: true,
+      description: "Maintains and repairs heavy equipment like bulldozers, cranes, and tractors.",
+      perks: ["Work on massive, powerful machines", "Great pay from day one", "Combination of field and shop work"],
+      demand: "Very High", environment: "Field Sites & Large Garages",
+      tools: ["Hydraulic Press", "Heavy-duty Sockets", "Diagnostic Laptop"],
+      links: { jobs: "https://www.jobbank.gc.ca/jobsearch/jobsearch?searchstring=72401&locationstring=Ontario", union: "https://iuoelocal793.org/" },
+      tags:['handsOn','vehicles','problemSolving','outdoor'] },
+  ];
+  const QUIZ = [
+    { q: "On a weekend, you'd rather be...", a: [ { t: "Building a deck or fixing a bike", v: ['handsOn', 'creative'] }, { t: "Figuring out why your computer is slow", v: ['tech', 'problemSolving'] }, { t: "Hiking, camping, or working outside", v: ['outdoor'] } ]},
+    { q: "What's your working style?", a: [ { t: "I like helping and talking to people", v: ['people'] }, { t: "I like focusing on one detailed task", v: ['detailOriented'] }, { t: "I like a fast-paced, high-energy vibe", v: ['fastPaced'] } ]},
+    { q: "Choose a superpower:", a: [ { t: "The ability to fix any machine", v: ['vehicles', 'problemSolving'] }, { t: "The ability to create beautiful things", v: ['creative'] }, { t: "The ability to work a predictable 9-5", v: ['steadyHours'] } ]}
+  ];
+
+  const state = { currentView: 'welcome', quiz: { questionIndex: 0, vibes: new Set() }, deck: { trades: [], currentIndex: 0 }, favorites: new Set(), theme: 'auto' };
+  const $ = (sel) => document.querySelector(sel);
+  const $$ = (sel) => document.querySelectorAll(sel);
+
+  // --- NEW STATE MANAGEMENT FUNCTIONS ---
+
+  const saveState = () => {
+    // Convert Sets to arrays for JSON compatibility
+    const serializableState = {
+      ...state,
+      favorites: [...state.favorites],
+      quiz: {
+        ...state.quiz,
+        vibes: [...state.quiz.vibes],
+      },
+    };
+    localStorage.setItem('tradeQuestState', JSON.stringify(serializableState));
+  };
+
+  const loadState = () => {
+    try {
+      const savedStateJSON = localStorage.getItem('tradeQuestState');
+      if (savedStateJSON) {
+        const loadedState = JSON.parse(savedStateJSON);
+
+        // Merge loaded state into the default state object
+        Object.assign(state, loadedState);
+
+        // Rehydrate Sets from the stored arrays
+        state.favorites = new Set(loadedState.favorites || []);
+        state.quiz.vibes = new Set(loadedState.quiz.vibes || []);
+
+        // If user reloads on quiz, or their deck isn't ready, send to welcome.
+        if (state.currentView === 'quiz' || (state.currentView === 'deck' && state.deck.trades.length === 0)) {
+          state.currentView = 'welcome';
+        }
       }
+    } catch (e) {
+      console.error("Failed to load or parse state from localStorage", e);
+      // On failure, the app will start with the default state
     }
-    
-    function renderQuiz() {
-      const q = QUIZ[state.quiz.questionIndex];
-      $('#quizProgressBar').style.width = `${((state.quiz.questionIndex + 1) / QUIZ.length) * 100}%`;
-      $('#quizContent').innerHTML = `<h2 class="text-2xl font-bold mb-6">${q.q}</h2><div class="grid gap-3">${q.a.map(ans => `<button class="quiz-answer w-full p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-primary hover:bg-primary/10 font-semibold" data-vibes='${JSON.stringify(ans.v)}'>${ans.t}</button>`).join('')}</div>`;
-      $$('.quiz-answer').forEach(btn => btn.addEventListener('click', handleQuizAnswer));
+  };
+
+  function applyTheme() { const isDark = state.theme === 'dark' || (state.theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches); document.documentElement.classList.toggle('dark', isDark); $('#themeIcon').textContent = isDark ? '🌞' : '🌙'; }
+  function toggleTheme() { state.theme = state.theme === 'auto' ? 'dark' : state.theme === 'dark' ? 'light' : 'auto'; applyTheme(); saveState(); }
+
+  function render() {
+    $$('.view').forEach(v => v.classList.add('hidden'));
+    $(`#${state.currentView}View`)?.classList.remove('hidden');
+    $('#navBar').classList.toggle('hidden', state.currentView === 'welcome' || state.currentView === 'quiz');
+    $$('.nav-btn').forEach(btn => { btn.classList.remove('text-primary', 'border-primary'); btn.classList.add('text-gray-500', 'border-transparent'); });
+    $(`#${state.currentView}Nav`)?.classList.add('text-primary', 'border-primary');
+
+    switch (state.currentView) {
+      case 'quiz': renderQuiz(); break;
+      case 'deck': renderDeck(); break;
+      case 'favorites': renderFavorites(); break;
     }
+  }
 
-    // Located inside your renderDeck() function
+  function renderQuiz() {
+    const q = QUIZ[state.quiz.questionIndex];
+    $('#quizProgressBar').style.width = `${((state.quiz.questionIndex + 1) / QUIZ.length) * 100}%`;
+    $('#quizContent').innerHTML = `<h2 class="text-2xl font-bold mb-6">${q.q}</h2><div class="grid gap-3">${q.a.map(ans => `<button class="quiz-answer w-full p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-primary hover:bg-primary/10 font-semibold" data-vibes='${JSON.stringify(ans.v)}'>${ans.t}</button>`).join('')}</div>`;
+    $$('.quiz-answer').forEach(btn => btn.addEventListener('click', handleQuizAnswer));
+  }
 
-function renderDeck() {
+  function renderDeck() {
     const cardContainer = $('#deckCard');
     const currentIndex = state.deck.currentIndex;
 
     if (currentIndex >= state.deck.trades.length) {
-        cardContainer.innerHTML = `<div class="w-full h-full flex flex-col items-center justify-center text-center bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-4"><div class="text-5xl mb-4">🎉</div><h3 class="text-2xl font-bold">That's all for now!</h3><p class="text-gray-600 dark:text-gray-400 mt-2">Check your saved trades or restart the quiz.</p></div>`;
-        $('#yepBtn').disabled = true; $('#nopeBtn').disabled = true;
-        return;
+      cardContainer.innerHTML = `<div class="w-full h-full flex flex-col items-center justify-center text-center bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-4"><div class="text-5xl mb-4">🎉</div><h3 class="text-2xl font-bold">That's all for now!</h3><p class="text-gray-600 dark:text-gray-400 mt-2">Check your saved trades or restart the quiz to get new recommendations.</p></div>`;
+      $('#yepBtn').disabled = true; $('#nopeBtn').disabled = true;
+      return;
     }
-    
+
     $('#yepBtn').disabled = false; $('#nopeBtn').disabled = false;
-    
+
     let cardsHTML = '';
     for (let i = 0; i < 3; i++) {
-        const tradeIndex = currentIndex + i;
-        if (tradeIndex >= state.deck.trades.length) break;
-        const trade = state.deck.trades[tradeIndex];
-        const isDraggable = i === 0 ? 'draggable-card' : '';
-        
-        // --- THIS IS THE LINE TO CHANGE ---
-        // FROM: <div class="deck-card ${isDraggable} max-w-lg mx-auto" data-index="${i}">
-        // TO:   <div class="deck-card ${isDraggable}" data-index="${i}">
-        cardsHTML += `
+      const tradeIndex = currentIndex + i;
+      if (tradeIndex >= state.deck.trades.length) break;
+      const trade = state.deck.trades[tradeIndex];
+      const isDraggable = i === 0 ? 'draggable-card' : '';
+
+      cardsHTML += `
             <div class="deck-card ${isDraggable}" data-index="${i}">
               <div class="relative w-full h-full bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 flex flex-col text-center items-center justify-between overflow-hidden">
                 <div class="yep-indicator absolute top-12 right-8 text-4xl font-extrabold text-green-500 border-4 border-green-500 rounded-xl px-4 py-2 rotate-[20deg] opacity-0 transition-opacity z-10">YEP</div>
@@ -270,146 +296,158 @@ function renderDeck() {
     }
     cardContainer.innerHTML = cardsHTML;
 
-    
     $$('.details-btn').forEach(btn => btn.addEventListener('click', showDetailsModal));
     attachDragListeners($('.draggable-card'));
-}
-    
-    function renderFavorites() {
-      if (state.favorites.size === 0) { $('#noFavs').classList.remove('hidden'); $('#favsGrid').innerHTML = ''; return; }
-      $('#noFavs').classList.add('hidden');
-      $('#favsGrid').innerHTML = [...state.favorites].map(id => { const t = TRADES.find(t => t.id === id); if (!t) return ''; return `<div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 flex items-center gap-4 relative"><span class="text-4xl">${t.emoji}</span><div class="flex-grow"><h4 class="font-bold text-lg">${t.name}</h4><p class="text-sm text-gray-500">~$${t.startingWage}-${t.potentialWage}/hr potential</p></div><button class="remove-fav absolute top-2 right-2 text-xl text-gray-400 hover:text-red-500" data-id="${t.id}" title="Remove">❌</button><button class="details-btn text-primary font-semibold text-sm" data-id="${t.id}">Details</button></div>`; }).join('');
-      $$('.remove-fav').forEach(btn => btn.addEventListener('click', handleRemoveFavorite));
-      $$('.details-btn').forEach(btn => btn.addEventListener('click', showDetailsModal));
-    }
-    
-    function handleQuizAnswer(e) {
-      JSON.parse(e.currentTarget.dataset.vibes).forEach(v => state.quiz.vibes.add(v));
-      state.quiz.questionIndex++;
-      if (state.quiz.questionIndex >= QUIZ.length) {
-        state.deck.trades = TRADES.map(t => ({...t, score: t.tags.reduce((acc, tag) => acc + (state.quiz.vibes.has(tag) ? 1 : 0), 0)})).sort((a, b) => b.score - a.score);
-        state.deck.currentIndex = 0;
-        state.currentView = 'deck';
-      }
-      render();
-    }
-    
-    function nextCard(isYep, fromButton = false) {
-      const cardEl = $('.draggable-card');
-      if (!cardEl) return;
-      
-      const currentTrade = state.deck.trades[state.deck.currentIndex];
-      if (isYep) { state.favorites.add(currentTrade.id); saveState(); }
-      
-      if (fromButton) {
-        cardEl.style.transition = 'transform 0.5s ease-in, opacity 0.5s ease-in';
-        const direction = isYep ? 1 : -1;
-        cardEl.style.transform = `translateX(${direction * window.innerWidth}px) rotate(${direction * 45}deg)`;
-        cardEl.style.opacity = '0';
-      }
-
-      setTimeout(() => {
-        state.deck.currentIndex++;
-        renderDeck();
-      }, fromButton ? 200 : 0);
-    }
-    
-    function handleRemoveFavorite(e) { e.stopPropagation(); const id = e.currentTarget.dataset.id; state.favorites.delete(id); saveState(); renderFavorites(); }
-
-    function showDetailsModal(e) {
-      const id = e.currentTarget.dataset.id;
-      const trade = TRADES.find(t => t.id === id);
-      if (!trade) return;
-      $('#modalContent').innerHTML = `<div class="p-6 md:p-8"><div class="text-center"><div class="text-7xl mb-2">${trade.emoji}</div><h2 class="text-3xl font-extrabold">${trade.name}</h2><p class="text-gray-500 mt-1">A smart path to a great career.</p></div><div class="my-6 space-y-6 text-left"><div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg"><h4 class="font-bold text-lg mb-1">💰 Salary Snapshot</h4><p class="dark:text-gray-300">Start earning <strong class="text-primary-600 dark:text-primary-400">~$${trade.startingWage}/hour</strong> as an apprentice. Experienced pros can make <strong class="text-primary-600 dark:text-primary-400">$${trade.potentialWage}/hour or more</strong>, often without any student debt.</p></div><div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg"><h4 class="font-bold text-lg mb-1">🛣️ The Ontario Path (Earn While You Learn)</h4><p class="dark:text-gray-300">The path is a ${trade.years}-year apprenticeship where you get paid to learn on the job. Start in Grade 11/12 with the <strong class="text-accent-600 dark:text-accent-400">Ontario Youth Apprenticeship Program (OYAP)</strong>. Ask your guidance counsellor about it!</p></div><div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg"><h4 class="font-bold text-lg mb-1">🔧 Tools of the Trade</h4><p class="dark:text-gray-300">You'll get to master tools like: ${trade.tools.join(', ')}.</p></div><div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">🚀 Next Steps & Resources</h4><div class="grid sm:grid-cols-2 gap-3"><a href="http://www.oyap.com/en/about_oyap/what_is_oyap/" target="_blank" rel="noopener noreferrer" class="block p-3 text-center bg-accent-500 text-white font-bold rounded-lg hover:bg-accent-600 transition">Learn About OYAP</a><a href="${trade.links.jobs}" target="_blank" rel="noopener noreferrer" class="block p-3 text-center bg-gray-600 text-white font-bold rounded-lg hover:bg-gray-700 transition">See Live Job Postings</a><a href="${trade.links.union}" target="_blank" rel="noopener noreferrer" class="sm:col-span-2 block p-3 text-center bg-gray-200 dark:bg-gray-700 font-bold rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition">Visit Union/Association Site</a></div></div></div><p class="text-xs text-center text-gray-500">For official info, consult <a href="https://www.skilledtradesontario.ca/" target="_blank" rel="noopener noreferrer" class="font-bold text-primary underline">Skilled Trades Ontario</a>.</p></div><div class="sticky bottom-0 p-4 bg-gray-100 dark:bg-gray-700/50 text-right backdrop-blur-sm border-t border-gray-200 dark:border-gray-700"><button id="closeModalBtn" class="px-6 py-2 bg-primary text-white font-bold rounded-lg hover:opacity-90">Got it</button></div>`;
-      $('#modal').classList.remove('hidden');
-      $('#closeModalBtn').addEventListener('click', () => $('#modal').classList.add('hidden'));
-    }
-
-    let isDragging = false, startX = 0, currentX = 0, dragTarget = null;
-    let yepIndicator, nopeIndicator, secondCard;
-    const getEventX = (e) => e.touches ? e.touches[0].clientX : e.clientX;
-
-    function onDragStart(e) {
-      if (e.target.classList.contains('details-btn')) return;
-      isDragging = true;
-      dragTarget = e.currentTarget;
-      startX = getEventX(e);
-      dragTarget.classList.add('dragging');
-      yepIndicator = dragTarget.querySelector('.yep-indicator');
-      nopeIndicator = dragTarget.querySelector('.nope-indicator');
-      secondCard = $('.deck-card[data-index="1"]');
-      document.addEventListener('mousemove', onDragging); document.addEventListener('touchmove', onDragging);
-      document.addEventListener('mouseup', onDragEnd); document.addEventListener('touchend', onDragEnd);
-    }
-
-    // This is the full onDragging() function
-function onDragging(e) {
-  if (!isDragging || !dragTarget) return;
-  currentX = getEventX(e);
-  const deltaX = currentX - startX;
-  const rotation = deltaX * 0.1;
-  const opacityThreshold = dragTarget.offsetWidth / 4;
-  const decisionThreshold = dragTarget.offsetWidth / 3.5;
-  const progress = Math.min(1, Math.abs(deltaX) / decisionThreshold);
-  
-  dragTarget.style.transform = `translateX(${deltaX}px) rotate(${rotation}deg)`;
-  yepIndicator.style.opacity = Math.max(0, Math.min(1, (deltaX - 20) / opacityThreshold));
-  nopeIndicator.style.opacity = Math.max(0, Math.min(1, (-deltaX - 20) / opacityThreshold));
-
-  if (secondCard) {
-    const scale = 0.95 + (0.05 * progress);
-    // CHANGE: The initial translateY is now 10px to match the new CSS
-    const translateY = 10 - (10 * progress);
-    secondCard.style.transform = `translateY(${translateY}px) scale(${scale})`;
   }
-}
 
-// This is the full onDragEnd() function
-function onDragEnd() {
-  if (!isDragging || !dragTarget) return;
-  const deltaX = currentX - startX;
-  const decisionThreshold = dragTarget.offsetWidth / 3.5;
-  
-  dragTarget.classList.remove('dragging');
-  
-  if (deltaX > decisionThreshold) {
-    dragTarget.style.transform = `translateX(100vw) rotate(45deg)`;
-    nextCard(true);
-  } else if (deltaX < -decisionThreshold) {
-    dragTarget.style.transform = `translateX(-100vw) rotate(-45deg)`;
-    nextCard(false);
-  } else {
-    dragTarget.style.transform = 'translateX(0) rotate(0)';
-    yepIndicator.style.opacity = 0;
-    nopeIndicator.style.opacity = 0;
-    // CHANGE: Reset transform to the new CSS value for the tighter stack
-    if (secondCard) secondCard.style.transform = 'translateY(10px) scale(0.95)';
+  function renderFavorites() {
+    if (state.favorites.size === 0) { $('#noFavs').classList.remove('hidden'); $('#favsGrid').innerHTML = ''; return; }
+    $('#noFavs').classList.add('hidden');
+    $('#favsGrid').innerHTML = [...state.favorites].map(id => { const t = TRADES.find(t => t.id === id); if (!t) return ''; return `<div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 flex items-center gap-4 relative"><span class="text-4xl">${t.emoji}</span><div class="flex-grow"><h4 class="font-bold text-lg">${t.name}</h4><p class="text-sm text-gray-500">~$${t.startingWage}-${t.potentialWage}/hr potential</p></div><button class="remove-fav absolute top-2 right-2 text-xl text-gray-400 hover:text-red-500" data-id="${t.id}" title="Remove">❌</button><button class="details-btn text-primary font-semibold text-sm" data-id="${t.id}">Details</button></div>`; }).join('');
+    $$('.remove-fav').forEach(btn => btn.addEventListener('click', handleRemoveFavorite));
+    $$('.details-btn').forEach(btn => btn.addEventListener('click', showDetailsModal));
   }
-  
-  isDragging = false; dragTarget = null;
-  document.removeEventListener('mousemove', onDragging); document.removeEventListener('touchmove', onDragging);
-  document.removeEventListener('mouseup', onDragEnd); document.removeEventListener('touchend', onDragEnd);
-}
-    
-    function attachDragListeners(element) {
-        if (!element) return;
-        element.addEventListener('mousedown', onDragStart);
-        element.addEventListener('touchstart', onDragStart, { passive: true });
+
+  function handleQuizAnswer(e) {
+    JSON.parse(e.currentTarget.dataset.vibes).forEach(v => state.quiz.vibes.add(v));
+    state.quiz.questionIndex++;
+    if (state.quiz.questionIndex >= QUIZ.length) {
+      state.deck.trades = TRADES.map(t => ({...t, score: t.tags.reduce((acc, tag) => acc + (state.quiz.vibes.has(tag) ? 1 : 0), 0)})).sort((a, b) => b.score - a.score);
+      state.deck.currentIndex = 0;
+      state.currentView = 'deck';
+      saveState(); // <-- Save state after quiz is complete
     }
-    
-    function init() {
-      loadState();
-      applyTheme();
-      $('#startQuestBtn').addEventListener('click', () => { state.quiz.questionIndex = 0; state.quiz.vibes.clear(); state.currentView = 'quiz'; render(); });
-      $('#discoverNav').addEventListener('click', () => { state.currentView = 'deck'; render(); });
-      $('#favoritesNav').addEventListener('click', () => { state.currentView = 'favorites'; render(); });
-      $('#yepBtn').addEventListener('click', () => nextCard(true, true));
-      $('#nopeBtn').addEventListener('click', () => nextCard(false, true));
-      $('#themeToggle').addEventListener('click', toggleTheme);
-      $('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') { $('#modal').classList.add('hidden'); } });
+    render();
+  }
+
+  function nextCard(isYep, fromButton = false) {
+    const cardEl = $('.draggable-card');
+    if (!cardEl) return;
+
+    const currentTrade = state.deck.trades[state.deck.currentIndex];
+    if (isYep) { state.favorites.add(currentTrade.id); }
+
+    if (fromButton) {
+      cardEl.style.transition = 'transform 0.5s ease-in, opacity 0.5s ease-in';
+      const direction = isYep ? 1 : -1;
+      cardEl.style.transform = `translateX(${direction * window.innerWidth}px) rotate(${direction * 45}deg)`;
+      cardEl.style.opacity = '0';
+    }
+
+    setTimeout(() => {
+      state.deck.currentIndex++;
+      saveState(); // <-- Save state after every card swipe
+      renderDeck();
+    }, fromButton ? 200 : 0);
+  }
+
+  function handleRemoveFavorite(e) { e.stopPropagation(); const id = e.currentTarget.dataset.id; state.favorites.delete(id); saveState(); renderFavorites(); }
+
+  function showDetailsModal(e) {
+    const id = e.currentTarget.dataset.id;
+    const trade = TRADES.find(t => t.id === id);
+    if (!trade) return;
+    $('#modalContent').innerHTML = `<div class="p-6 md:p-8"><div class="text-center"><div class="text-7xl mb-2">${trade.emoji}</div><h2 class="text-3xl font-extrabold">${trade.name}</h2><p class="text-gray-500 mt-1">A smart path to a great career.</p></div><div class="my-6 space-y-6 text-left"><div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg"><h4 class="font-bold text-lg mb-1">💰 Salary Snapshot</h4><p class="dark:text-gray-300">Start earning <strong class="text-primary-600 dark:text-primary-400">~$${trade.startingWage}/hour</strong> as an apprentice. Experienced pros can make <strong class="text-primary-600 dark:text-primary-400">$${trade.potentialWage}/hour or more</strong>, often without any student debt.</p></div><div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg"><h4 class="font-bold text-lg mb-1">🛣️ The Ontario Path (Earn While You Learn)</h4><p class="dark:text-gray-300">The path is a ${trade.years}-year apprenticeship where you get paid to learn on the job. Start in Grade 11/12 with the <strong class="text-accent-600 dark:text-accent-400">Ontario Youth Apprenticeship Program (OYAP)</strong>. Ask your guidance counsellor about it!</p></div><div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg"><h4 class="font-bold text-lg mb-1">🔧 Tools of the Trade</h4><p class="dark:text-gray-300">You'll get to master tools like: ${trade.tools.join(', ')}.</p></div><div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2">🚀 Next Steps & Resources</h4><div class="grid sm:grid-cols-2 gap-3"><a href="http://www.oyap.com/en/about_oyap/what_is_oyap/" target="_blank" rel="noopener noreferrer" class="block p-3 text-center bg-accent-500 text-white font-bold rounded-lg hover:bg-accent-600 transition">Learn About OYAP</a><a href="${trade.links.jobs}" target="_blank" rel="noopener noreferrer" class="block p-3 text-center bg-gray-600 text-white font-bold rounded-lg hover:bg-gray-700 transition">See Live Job Postings</a><a href="${trade.links.union}" target="_blank" rel="noopener noreferrer" class="sm:col-span-2 block p-3 text-center bg-gray-200 dark:bg-gray-700 font-bold rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition">Visit Union/Association Site</a></div></div></div><p class="text-xs text-center text-gray-500">For official info, consult <a href="https://www.skilledtradesontario.ca/" target="_blank" rel="noopener noreferrer" class="font-bold text-primary underline">Skilled Trades Ontario</a>.</p></div><div class="sticky bottom-0 p-4 bg-gray-100 dark:bg-gray-700/50 text-right backdrop-blur-sm border-t border-gray-200 dark:border-gray-700"><button id="closeModalBtn" class="px-6 py-2 bg-primary text-white font-bold rounded-lg hover:opacity-90">Got it</button></div>`;
+    $('#modal').classList.remove('hidden');
+    $('#closeModalBtn').addEventListener('click', () => $('#modal').classList.add('hidden'));
+  }
+
+  let isDragging = false, startX = 0, currentX = 0, dragTarget = null;
+  let yepIndicator, nopeIndicator, secondCard;
+  const getEventX = (e) => e.touches ? e.touches[0].clientX : e.clientX;
+
+  function onDragStart(e) {
+    if (e.target.classList.contains('details-btn')) return;
+    isDragging = true;
+    dragTarget = e.currentTarget;
+    startX = getEventX(e);
+    dragTarget.classList.add('dragging');
+    yepIndicator = dragTarget.querySelector('.yep-indicator');
+    nopeIndicator = dragTarget.querySelector('.nope-indicator');
+    secondCard = $('.deck-card[data-index="1"]');
+    document.addEventListener('mousemove', onDragging); document.addEventListener('touchmove', onDragging);
+    document.addEventListener('mouseup', onDragEnd); document.addEventListener('touchend', onDragEnd);
+  }
+
+  function onDragging(e) {
+    if (!isDragging || !dragTarget) return;
+    currentX = getEventX(e);
+    const deltaX = currentX - startX;
+    const rotation = deltaX * 0.1;
+    const opacityThreshold = dragTarget.offsetWidth / 4;
+    const decisionThreshold = dragTarget.offsetWidth / 3.5;
+    const progress = Math.min(1, Math.abs(deltaX) / decisionThreshold);
+
+    dragTarget.style.transform = `translateX(${deltaX}px) rotate(${rotation}deg)`;
+    yepIndicator.style.opacity = Math.max(0, Math.min(1, (deltaX - 20) / opacityThreshold));
+    nopeIndicator.style.opacity = Math.max(0, Math.min(1, (-deltaX - 20) / opacityThreshold));
+
+    if (secondCard) {
+      const scale = 0.95 + (0.05 * progress);
+      const translateY = 10 - (10 * progress);
+      secondCard.style.transform = `translateY(${translateY}px) scale(${scale})`;
+    }
+  }
+
+  function onDragEnd() {
+    if (!isDragging || !dragTarget) return;
+    const deltaX = currentX - startX;
+    const decisionThreshold = dragTarget.offsetWidth / 3.5;
+
+    dragTarget.classList.remove('dragging');
+
+    if (deltaX > decisionThreshold) {
+      dragTarget.style.transform = `translateX(100vw) rotate(45deg)`;
+      nextCard(true);
+    } else if (deltaX < -decisionThreshold) {
+      dragTarget.style.transform = `translateX(-100vw) rotate(-45deg)`;
+      nextCard(false);
+    } else {
+      dragTarget.style.transform = 'translateX(0) rotate(0)';
+      yepIndicator.style.opacity = 0;
+      nopeIndicator.style.opacity = 0;
+      if (secondCard) secondCard.style.transform = 'translateY(10px) scale(0.95)';
+    }
+
+    isDragging = false; dragTarget = null;
+    document.removeEventListener('mousemove', onDragging); document.removeEventListener('touchmove', onDragging);
+    document.removeEventListener('mouseup', onDragEnd); document.removeEventListener('touchend', onDragEnd);
+  }
+
+  function attachDragListeners(element) {
+    if (!element) return;
+    element.addEventListener('mousedown', onDragStart);
+    element.addEventListener('touchstart', onDragStart, { passive: true });
+  }
+
+  function init() {
+    loadState();
+    applyTheme();
+
+    // The Start button now resets the quiz/deck state
+    $('#startQuestBtn').addEventListener('click', () => {
+      state.quiz.questionIndex = 0;
+      state.quiz.vibes.clear();
+      state.deck.trades = [];
+      state.deck.currentIndex = 0;
+      state.currentView = 'quiz';
+      saveState(); // Save the reset state
       render();
-    }
-    init();
-  </script>
+    });
+
+    // Navigation now saves the current view
+    $('#discoverNav').addEventListener('click', () => { state.currentView = 'deck'; saveState(); render(); });
+    $('#favoritesNav').addEventListener('click', () => { state.currentView = 'favorites'; saveState(); render(); });
+
+    $('#yepBtn').addEventListener('click', () => nextCard(true, true));
+    $('#nopeBtn').addEventListener('click', () => nextCard(false, true));
+    $('#themeToggle').addEventListener('click', toggleTheme);
+    $('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') { $('#modal').classList.add('hidden'); } });
+
+    render(); // Initial render based on loaded state
+  }
+
+  init();
+</script>
 </body>
 </html>
